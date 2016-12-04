@@ -1,0 +1,22 @@
+extends ../layout/head
+
+block content
+  h1= title
+  div.main
+    div.search
+      a.btn.btn-back(href="/") 返回
+    ul.list.J-list
+      li.item
+        input(name="msg",class="msg J-create-msg",placeholder="尽情吐槽吧~~enter键发送")
+        a.btn.btn-ok.J-send 发送
+      each item, i in list
+        li.item(data-para="{isDone:#{item.isDone},id:'#{item.id}'}")
+          span #{item.createTime.toLocaleString()}
+          span #{item.data}
+          span #{item.lastUpdateTime.toLocaleString()}
+          span
+            - if (!item.isDone)
+              a.btn.btn-create.J-complete 完成
+              a.btn.btn-delete.J-delete 删除
+            - else
+              a.btn.btn-create 已完成

@@ -1,0 +1,21 @@
+extends ../layout/head
+
+block content
+  h1= title
+  div.main
+    div.search
+      input.input(name='pagename',placeholder='页面名称')
+      input.input(name='apiname',placeholder='接口名称')
+      a.btn.btn-link.J-search 搜索
+      a.btn.btn-black.J-reset 重置
+      a.btn.btn-create(href="/detail?create") 新建
+      a.btn.btn-warnning(href="/feedback") 吐槽
+    ul.list.J-list
+      each item, i in list
+        li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
+          span #{item.pagename}
+          span #{item.description}
+          span
+            a(href="/detail?page=#{item.pagename}&api=#{item.apiname}") #{item.pagename}/#{item.apiname}
+          span
+            a.btn.btn-delete.J-delete 删除

@@ -1,0 +1,30 @@
+extends ../layout/head
+
+block content
+  script(src='/dest/js/detail/jsonlint_zh.js')
+  script(src='jquery-linedtextarea.js')
+  script(src='/dest/js/detail/loading.js')
+  - if (err)
+    p #{err}
+  - else
+    div.header
+      h1= title
+      a(href='#{href}',target='_blank') #{href}
+    div.main
+      div.option
+        input.input(name='pagename',placeholder='页面名称,必填',value='#{data.pagename || ""}')
+        input.input(name='apiname',placeholder='接口名称，必填',value='#{data.apiname || ""}')
+        a.btn.btn-ok.J-submit 保存
+        a.btn.btn-back(href="/") 返回
+        a.btn.btn-link.J-note-btn 查看注释
+        textarea(name='description',placeholder='接口注释,最好填一下',class='description') #{data.description}
+      div.left
+        - if (data.data)
+          textarea(name='editor',data-flag=1, data-note="#{JSON.stringify(data.dataNote)}", class='editor J-editor',placeholder='{\n\t请按照json、js格式将内容输入在这里\n\t注释请放在字段名前面\n}')
+            | #{data.dataString}
+        - else
+          textarea(name='editor',data-flag=0, class='editor J-editor',placeholder='{\n\t请按照json、js格式将内容输入在这里\n\t注释请放在字段名前面\n}') #{'{\n\t//注释请放在字段名前面\n\ttest:"请按照json、js格式将内容输入在这里"\n}'}
+      div.right
+        div.preview.J-preview
+        div.preview.note.J-note
+        a.btn-option.J-btn-option
