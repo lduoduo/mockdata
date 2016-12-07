@@ -26,6 +26,9 @@ li {
   /*width: 30%;*/
   padding: 5px 10px;
 }
+.list .item span a{
+  display: block;
+}
 .list .item:nth-of-type(odd) {
   background: #ddd;
 }
