@@ -24,9 +24,10 @@ var list = {
     initEvent() {
         let that= this;
         $('body').on('click', '.J-search', function () {
+            var appname = $('[name=appname]').val();
             var pagename = $('[name=pagename]').val();
             var apiname = $('[name=apiname]').val();
-            if (pagename == "" && apiname == "") {
+            if (pagename == "" && apiname == "" && appname == "") {
                 Mt.alert({
                     title: '呃。。。！',
                     type: 'error',
@@ -36,7 +37,8 @@ var list = {
             }
             var para = {
                 apiname: apiname,
-                pagename: pagename
+                pagename: pagename,
+                appname: appname
             }
             that.fetchData(para);
         });
@@ -78,7 +80,7 @@ var list = {
         var html = "";
         for (let i = 0; i < data.data.length; i++) {
             let tmp = data.data[i];
-            html += `<li class=item data-para="{pagename:'${tmp.pagename}',apiname:'${tmp.apiname}'}"><span>${tmp.pagename}</span><span>${tmp.description || ""}</span><span><a href='/detail?page=${tmp.pagename}&api=${tmp.apiname}'>${tmp.pagename}/${tmp.apiname}</a></span><span><a class="btn btn-delete J-delete">删除</a></span></li>`
+            html += `<li class=item data-para="{pagename:'${tmp.pagename}',apiname:'${tmp.apiname}'}"><span>${tmp.appname || ""}</span><span>${tmp.pagename}</span><span>${tmp.description || ""}</span><span><a href='/detail?page=${tmp.pagename}&api=${tmp.apiname}'>${tmp.pagename}/${tmp.apiname}</a></span><span><a class="btn btn-delete J-delete">删除</a></span></li>`
         }
         return html;
     },

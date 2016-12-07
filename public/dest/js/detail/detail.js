@@ -54,6 +54,7 @@ var detail = {
         editFlag = !!$('.J-editor').data('flag');
         if (editFlag) {
             editFlag = true;
+            oldData.appname = $('[name=appname]').val();
             oldData.pagename = $('[name=pagename]').val();
             oldData.apiname = $('[name=apiname]').val();
             oldData.data = $('.J-editor').val();
@@ -292,9 +293,10 @@ var detail = {
     },
     //保存数据，提交
     save() {
+        var appname = $('[name=appname]').val();
         var pagename = $('[name=pagename]').val();
         var apiname = $('[name=apiname]').val();
-        if (pagename == "" || apiname == "" || dataJson == null) {
+        if (appname =="" || pagename == "" || apiname == "" || dataJson == null) {
             Mt.alert({
                 title: '呃。。。！',
                 type: 'error',
@@ -311,6 +313,7 @@ var detail = {
             return;
         }
         var para = {
+            appname: appname,
             apiname: apiname,
             pagename: pagename,
             description: $('[name=description]').val(),
@@ -320,6 +323,7 @@ var detail = {
         }
         if (oldData.pagename) {
             para.oldData = {
+                appname: oldData.appname,
                 pagename: oldData.pagename,
                 apiname: oldData.apiname
             }

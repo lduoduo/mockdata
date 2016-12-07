@@ -12,6 +12,7 @@ block content
       a(href='#{href}',target='_blank') #{href}
     div.main
       div.option
+        input.input(name='appname',placeholder='应用名称,必填',value='#{data.appname || ""}')
         input.input(name='pagename',placeholder='页面名称,必填',value='#{data.pagename || ""}')
         input.input(name='apiname',placeholder='接口名称，必填',value='#{data.apiname || ""}')
         a.btn.btn-ok.J-submit 保存

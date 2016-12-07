@@ -4,6 +4,7 @@ block content
   h1= title
   div.main
     div.search
+      input.input(name='appname',placeholder='应用名称')
       input.input(name='pagename',placeholder='页面名称')
       input.input(name='apiname',placeholder='接口名称')
       a.btn.btn-link.J-search 搜索
@@ -13,6 +14,7 @@ block content
     ul.list.J-list
       each item, i in list
         li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
+          span #{item.appname}
           span #{item.pagename}
           span #{item.description}
           span

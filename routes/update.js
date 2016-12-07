@@ -11,10 +11,12 @@ module.exports = function* (next) {
     var tmp = this.request.body;
     tmp.dataString = JSON.parse(tmp.dataString || null);
     tmp.dataJson = eval('(' + tmp.dataString + ')');
+    var appname = tmp.appname;
     var pageName = tmp.pagename;
     var apiname = tmp.apiname;
     // var {pagename,id} = tmp; //会报错？什么原因
     var para = {
+        'appname': tmp.appname.toLowerCase(),
         'pagename': tmp.pagename.toLowerCase(),
         'apiname': tmp.apiname.toLowerCase(),
     }
@@ -47,10 +49,12 @@ module.exports = function* (next) {
             para.isActive = true;
             yield this.mongo.db('datas').collection('datas').insert(para);
         } else if (tmp.flag == 'update') {
+            para.appname = tmp.oldData ? tmp.oldData.appname : para.appname;
             para.pagename = tmp.oldData ? tmp.oldData.pagename : para.pagename;
             para.apiname = tmp.oldData ? tmp.oldData.apiname : para.apiname;
             yield this.mongo.db('datas').collection('datas').updateOne(para, {
                 $set: {
+                    'appname': tmp.appname.toLowerCase(),
                     "pagename": tmp.pagename.toLowerCase(),
                     "apiname": tmp.apiname.toLowerCase(),
                     "description": tmp.description,
