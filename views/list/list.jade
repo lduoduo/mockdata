@@ -15,10 +15,11 @@ block content
       each item, i in list
         li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
           span #{item.appname}
-            a(target="_blank",href="#{'/nodeapi/'+item.pagename+'/'+item.apiname}") 访问接口地址
           span #{item.pagename}
-          span #{item.description}
+          span 
+            a(href="/detail?page=#{item.pagename}&api=#{item.apiname}") #{item.description}
           span
-            a(href="/detail?page=#{item.pagename}&api=#{item.apiname}") #{item.pagename}/#{item.apiname}
+            接口访问地址
+            a(href="/nodeapi/#{item.pagename}/#{item.apiname}") /nodeapi/#{item.pagename}/#{item.apiname}
           span
             a.btn.btn-delete.J-delete 删除
