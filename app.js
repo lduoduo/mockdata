@@ -9,13 +9,14 @@ var app = require('koa')()
 // , multer = require('koa-multer');
 
 
-var port = normalizePort(process.env.PORT || '8090');
+var port = normalizePort(process.env.PORT || '9999');
 var http = require('http');
 var server = http.createServer(app.callback());
 var debug = require('debug')('demo:server');
 
 var routers = require('./routes');
 var mongo = require('koa-mongo');
+var config = require('./config');
 
 // global middlewares
 app.use(views('views', {
@@ -32,7 +33,7 @@ app.use(json({ limit: '50mb' }));
 app.use(logger());
 
 app.use(mongo({
-  uri: 'mongodb://10.14.91.132:27017/datas', //or url
+  uri: 'mongodb://' + config.ip + ':27017/datas', //or url
   max: 100,
   min: 1,
   timeout: 30000,
@@ -79,6 +80,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+console.log('server on ' + port);
 
 /**
  * Normalize a port into a number, string, or false.
