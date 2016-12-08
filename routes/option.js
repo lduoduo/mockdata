@@ -12,10 +12,12 @@ module.exports = function* (next) {
     var apiname = this.query.apiname;
     // var {pagename,id} = this.query; //会报错？什么原因
     var para = {
-        'pagename': this.query.pagename,
-        'apiname': this.query.apiname
+        'appname': this.query.appname.toLowerCase(),
+        'pagename': this.query.pagename.toLowerCase(),
+        'apiname': this.query.apiname.toLowerCase()
     }
     var status = {};
+    !para.appname && delete para.appname;
     !para.pagename && delete para.pagename;
     !para.apiname && delete para.apiname;
     para.isActive = true;

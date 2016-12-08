@@ -25,6 +25,26 @@ li
 
         /*width: 30%;*/
         padding: 5px 10px;
+        word-break: break-all;
+        a{
+            display: inline-block;
+            text-decoration: none;
+            word-break: break-all;
+        }
+        &.span3{
+            flex: 3;
+        }
+        .url{
+            font-size: 0.9em;
+            background: lightgreen;
+            border-radius: 5px;
+            padding: 0 5px;
+            color: #fff;
+            margin: 2px;
+            &.online{
+                background: #1db01d
+            }
+        }
     }
     .item:nth-of-type(odd)
     {

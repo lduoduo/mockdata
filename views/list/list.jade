@@ -14,12 +14,14 @@ block content
     ul.list.J-list
       each item, i in list
         li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
-          span #{item.appname}
-          span #{item.pagename}
-          span 
-            a(href="/detail?page=#{item.pagename}&api=#{item.apiname}") #{item.description}
-          span
-            接口访问地址
-            a(href="/nodeapi/#{item.pagename}/#{item.apiname}") /nodeapi/#{item.pagename}/#{item.apiname}
-          span
+          span.span1 #{item.appname}
+          span.span1 #{item.pagename}
+          span.span1
+            a(href="/detail?page=#{item.pagename}&api=#{item.apiname}") #{item.apiname}
+          span.span3 !{item.description ? item.description.replace(/[\n,\r]/gi,'<br>') : item.description}
+          span.span3
+            a(class="url local",target="_blank",href="/nodeapi/#{item.pagename}/#{item.apiname}") /nodeapi/#{item.pagename}/#{item.apiname}
+            <br>
+            a(class="url online",target="_blank",href="#{item.onlineurl}") #{item.onlineurl}
+          span.span1
             a.btn.btn-delete.J-delete 删除

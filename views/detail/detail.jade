@@ -19,6 +19,7 @@ block content
         a.btn.btn-back(href="/") 返回
         a.btn.btn-link.J-note-btn 查看注释
         textarea(name='description',placeholder='接口注释,最好填一下',class='description') #{data.description}
+        textarea(name='onlineurl',placeholder='线上地址,接口上线后请及时更新这里',class='description') #{data.onlineurl}
       div.left
         - if (data.data)
           textarea(name='editor',data-flag=1, data-note="#{JSON.stringify(data.dataNote)}", class='editor J-editor',placeholder='{\n\t请按照json、js格式将内容输入在这里\n\t注释请放在字段名前面\n}')

@@ -33,7 +33,7 @@ app.use(json({ limit: '50mb' }));
 app.use(logger());
 
 app.use(mongo({
-  uri: 'mongodb://' + config.ip + ':27017/datas', //or url
+  uri: 'mongodb://10.14.91.132:27017/datas', //or url
   max: 100,
   min: 1,
   timeout: 30000,
@@ -67,6 +67,7 @@ app.use(route.get('/detail', routers.detail));
 app.use(route.get(/\/option\/\w+?/, routers.option));
 app.use(route.post(/\/option\/\w+?/, routers.update));
 app.use(route.get(/\/nodeapi\/\w+?/, routers.data));
+app.use(route.post(/\/nodeapi\/\w+?/, routers.data));
 
 app.on('error', function (err, ctx) {
   console.log(err.stack);

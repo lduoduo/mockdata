@@ -25,9 +25,29 @@ li {
           flex: 1;
   /*width: 30%;*/
   padding: 5px 10px;
+  word-break: break-all;
 }
-.list .item span a{
-  display: block;
+.list .item span a {
+  display: inline-block;
+  text-decoration: none;
+  word-break: break-all;
+}
+.list .item span.span3 {
+  -webkit-box-flex: 3;
+     -moz-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+.list .item span .url {
+  font-size: 0.9em;
+  background: lightgreen;
+  border-radius: 5px;
+  padding: 0 5px;
+  color: #fff;
+  margin: 2px;
+}
+.list .item span .url.online {
+  background: #1db01d;
 }
 .list .item:nth-of-type(odd) {
   background: #ddd;

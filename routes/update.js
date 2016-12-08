@@ -18,7 +18,7 @@ module.exports = function* (next) {
     var para = {
         'appname': tmp.appname.toLowerCase(),
         'pagename': tmp.pagename.toLowerCase(),
-        'apiname': tmp.apiname.toLowerCase(),
+        'apiname': tmp.apiname.toLowerCase()
     }
     if (!para.pagename || !para.apiname) {
         data = "";
@@ -52,11 +52,13 @@ module.exports = function* (next) {
             para.appname = tmp.oldData ? tmp.oldData.appname : para.appname;
             para.pagename = tmp.oldData ? tmp.oldData.pagename : para.pagename;
             para.apiname = tmp.oldData ? tmp.oldData.apiname : para.apiname;
+
             yield this.mongo.db('datas').collection('datas').updateOne(para, {
                 $set: {
                     'appname': tmp.appname.toLowerCase(),
                     "pagename": tmp.pagename.toLowerCase(),
                     "apiname": tmp.apiname.toLowerCase(),
+                    "onlineurl": tmp.onlineurl,
                     "description": tmp.description,
                     "data": tmp.dataJson,
                     "dataNote": JSON.parse(tmp.dataNote || {}),

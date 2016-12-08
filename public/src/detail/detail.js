@@ -57,6 +57,7 @@ var detail = {
             oldData.appname = $('[name=appname]').val();
             oldData.pagename = $('[name=pagename]').val();
             oldData.apiname = $('[name=apiname]').val();
+            oldData.onlineurl = $('[name=onlineurl]').val();
             oldData.data = $('.J-editor').val();
             dataNote = $('.J-editor').data('note');
             dataNote = !dataNote || dataNote == "undefined" ? {} : dataNote;
@@ -296,6 +297,7 @@ var detail = {
         var appname = $('[name=appname]').val();
         var pagename = $('[name=pagename]').val();
         var apiname = $('[name=apiname]').val();
+        var onlineurl = $('[name=onlineurl]').val();
         if (appname =="" || pagename == "" || apiname == "" || dataJson == null) {
             Mt.alert({
                 title: '呃。。。！',
@@ -316,6 +318,7 @@ var detail = {
             appname: appname,
             apiname: apiname,
             pagename: pagename,
+            onlineurl : onlineurl,
             description: $('[name=description]').val(),
             dataNote: JSON.stringify(dataNote),
             dataString: JSON.stringify(dataString),
@@ -325,7 +328,8 @@ var detail = {
             para.oldData = {
                 appname: oldData.appname,
                 pagename: oldData.pagename,
-                apiname: oldData.apiname
+                apiname: oldData.apiname,
+                onlineurl: oldData.onlineurl
             }
         }
         ajax.post('/option/update', para, this.checkstatus);
