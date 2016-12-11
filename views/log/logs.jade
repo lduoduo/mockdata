@@ -1,0 +1,22 @@
+extends ../layout/head
+
+block content
+  h1= title
+  div.main
+    div.search
+      input.input(name='logtype',placeholder='日志类型')
+      input.input(name='appname',placeholder='应用名称')
+      input.input(name='pagename',placeholder='页面名称')
+      a.btn.btn-link.J-search 搜索
+      a.btn.btn-black.J-reset 重置
+      a.btn.btn-back(href="/") 返回
+    ul.list.J-list
+      each item, i in list
+        li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
+          span.span1 #{item.logtype}
+          span.span1 #{item.appname}
+          span.span1 #{item.pagename}
+          span.span3 #{item.log}
+          span.span1 #{item.address}
+          span.span2 #{item.platform}
+          span.span1 #{item.createTime.toLocaleString()}

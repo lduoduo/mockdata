@@ -1,61 +1,80 @@
 var app = require('koa')()
-  , bodyparser = require('koa-bodyparser')
-  , route = require('koa-route')
-  , cors = require('kcors')
-  , logger = require('koa-logger')
-  , json = require('koa-json')
-  , views = require('koa-views')
-  , onerror = require('koa-onerror');
+    , bodyparser = require('koa-bodyparser')
+    , route = require('koa-route')
+    , cors = require('kcors')
+    , logger = require('koa-logger')
+    , json = require('koa-json')
+    , views = require('koa-views')
+    , onerror = require('koa-onerror');
 // , multer = require('koa-multer');
 
+var fs = require('fs');
 
-var port = normalizePort(process.env.PORT || '9999');
+var port = process.env.PORT || '9998';
 var http = require('http');
-var server = http.createServer(app.callback());
+var https = require('https');
+
+
 var debug = require('debug')('demo:server');
 
 var routers = require('./routes');
 var mongo = require('koa-mongo');
 var config = require('./config');
 
+//https option
+var options = {
+    key: fs.readFileSync('keys/server.key'),
+    cert: fs.readFileSync('keys/server.crt'),
+    port: 9999
+};
+
 // global middlewares
 app.use(views('views', {
-  root: __dirname + '/views',
-  default: 'jade'
+    root: __dirname + '/views',
+    default: 'jade'
 }));
 
 app.use(bodyparser({
-  "formLimit": "50mb",
-  "jsonLimit": "50mb",
-  "textLimit": "50mb"
+    "formLimit": "50mb",
+    "jsonLimit": "50mb",
+    "textLimit": "50mb"
 }));
 app.use(json({ limit: '50mb' }));
 app.use(logger());
 
 app.use(mongo({
-  uri: 'mongodb://10.14.91.132:27017/datas', //or url
-  max: 100,
-  min: 1,
-  timeout: 30000,
-  log: false
+    uri: 'mongodb://localhost:27017/datas', //or url
+    max: 100,
+    min: 1,
+    timeout: 30000,
+    log: false
 }));
 
 app.use(function* (next) {
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  console.log('%s %s - %s', this.method, this.url, ms);
+    var start = new Date;
+    yield next;
+    var ms = new Date - start;
+    console.log('%s %s - %s', this.method, this.url, ms);
 });
 
 app.use(function* (next) {
-  try {
-    yield next;
-  } catch (e) {
-    this.body = e.stack;
-  }
+    try {
+        yield next;
+    } catch (e) {
+        this.body = e.stack;
+    }
 });
 
 app.use(require('koa-static')(__dirname + '/public'));
+
+app.use(function* (next) {
+    try {
+        yield next;
+    } catch (e) {
+        console.log(e);
+        this.body = "500 happens:" + e.message;
+    }
+});
 
 //跨域
 app.use(cors());
@@ -68,77 +87,22 @@ app.use(route.get(/\/option\/\w+?/, routers.option));
 app.use(route.post(/\/option\/\w+?/, routers.update));
 app.use(route.get(/\/nodeapi\/\w+?/, routers.data));
 app.use(route.post(/\/nodeapi\/\w+?/, routers.data));
+app.use(route.get('/logs', routers.logs));
+app.use(route.post('/updatelog', routers.updateLog));
 
-app.on('error', function (err, ctx) {
-  console.log(err.stack);
-  ctx.render(err.stack);
+app.on('error', function(err, ctx) {
+    console.log(err.stack);
+    ctx.render(err.stack);
 });
 
 // module.exports = app;
 
+//http server
+http.createServer(app.callback()).listen(9998, function() {
+    console.log('server http on ' + port);
+});
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
-
-console.log('server on ' + port);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
-
-/**
- * Event listener for HTTP server "error" event.
- */
-
-function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
-
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+//https
+https.createServer(options, app.callback()).listen(9999, function() {
+    console.log('server https on 9999');
+});

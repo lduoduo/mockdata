@@ -5,5 +5,7 @@ module.exports = {
     'data' : require('./data.js'),
     'update' : require('./update.js'),
     'feedback': require('./feedback.js'),
-    'updateFeedback': require('./updateFeedback.js')
+    'updateFeedback': require('./updateFeedback.js'),
+    'logs': require('./logs.js'),
+    'updateLog': require('./updateLog.js')
 }
