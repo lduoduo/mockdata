@@ -10,7 +10,8 @@ var app = require('koa')()
 
 var fs = require('fs');
 
-var port = process.env.PORT || '9998';
+var port = process.env.PORT || '8090';
+var ports = '8091';
 var http = require('http');
 var https = require('https');
 
@@ -43,7 +44,8 @@ app.use(json({ limit: '50mb' }));
 app.use(logger());
 
 app.use(mongo({
-    uri: 'mongodb://localhost:27017/datas', //or url
+  uri: 'mongodb://'+config.ip+':27017/datas', //or url
+    // uri: 'mongodb://localhost:27017/datas', //or url
     max: 100,
     min: 1,
     timeout: 30000,
@@ -76,7 +78,6 @@ app.use(function* (next) {
     }
 });
 
-//跨域
 app.use(cors());
 
 app.use(route.get('/', routers.list));
@@ -98,11 +99,11 @@ app.on('error', function(err, ctx) {
 // module.exports = app;
 
 //http server
-http.createServer(app.callback()).listen(9998, function() {
+http.createServer(app.callback()).listen(port, function() {
     console.log('server http on ' + port);
 });
 
 //https
-https.createServer(options, app.callback()).listen(9999, function() {
-    console.log('server https on 9999');
+https.createServer(options, app.callback()).listen(ports, function() {
+    console.log('server https on ' + ports);
 });
