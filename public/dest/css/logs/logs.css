@@ -38,6 +38,18 @@ li {
       -ms-flex: 3;
           flex: 3;
 }
+.list .item span.span4 {
+  -webkit-box-flex: 4;
+     -moz-box-flex: 4;
+      -ms-flex: 4;
+          flex: 4;
+}
+.list .item span.span5 {
+  -webkit-box-flex: 5;
+     -moz-box-flex: 5;
+      -ms-flex: 5;
+          flex: 5;
+}
 .list .item span .url {
   font-size: 0.9em;
   background: lightgreen;

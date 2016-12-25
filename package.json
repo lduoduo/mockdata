@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js",
+    "gulp" : "cd public && gulp"
   },
   "dependencies": {
     "co": "^4.6.0",

@@ -10,13 +10,14 @@ block content
       a.btn.btn-link.J-search 搜索
       a.btn.btn-black.J-reset 重置
       a.btn.btn-back(href="/") 返回
+      a.btn.btn-back.J-clean 清空
     ul.list.J-list
       each item, i in list
         li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
           span.span1 #{item.logtype}
           span.span1 #{item.appname}
           span.span1 #{item.pagename}
-          span.span3 #{item.log}
+          span.span3 !{item.log.replace(/[\n,\r]/gi,'<br>')}
           span.span1 #{item.address}
           span.span2 #{item.platform}
           span.span1 #{item.createTime.toLocaleString()}
