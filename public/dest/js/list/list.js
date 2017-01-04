@@ -80,7 +80,15 @@ var list = {
         var html = "";
         for (let i = 0; i < data.data.length; i++) {
             let tmp = data.data[i];
-            html += `<li class=item data-para="{pagename:'${tmp.pagename}',apiname:'${tmp.apiname}'}"><span>${tmp.appname || ""}</span><span>${tmp.pagename}</span><span>${tmp.description || ""}</span><span><a href='/detail?page=${tmp.pagename}&api=${tmp.apiname}'>${tmp.pagename}/${tmp.apiname}</a></span><span><a class="btn btn-delete J-delete">删除</a></span></li>`
+
+            html += `<li data-para="{appname:'${tmp.pagename}',pagename:'${tmp.pagename}',apiname:'${tmp.apiname}'}" class="item">
+                <span class="span1">${tmp.appname || ""}</span><span class="span1">${tmp.pagename}</span><span class="span1">
+                    <a href="/detail?page=${tmp.pagename}&amp;api=${tmp.apiname}">${tmp.apiname}</a></span>
+                <span class="span3">${tmp.description ? tmp.description.replace(/[\n,\r]/gi,'<br>') : tmp.description}</span><span class="span3">
+                    <a target="_blank" href="/nodeapi/${tmp.pagename}/${tmp.apiname}" class="url local">/nodeapi/${tmp.pagename}/${tmp.apiname}</a>
+                    <br>
+                    <a target="_blank" href="${tmp.onlineurl}" class="url online">${tmp.onlineurl}</a>
+                </span><span class="span1"><a class="btn btn-delete J-delete">删除</a></span></li>`;
         }
         return html;
     },

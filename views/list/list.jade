@@ -14,7 +14,7 @@ block content
       a.btn.btn-create(href="/logs") 日志
     ul.list.J-list
       each item, i in list
-        li.item(data-para="{pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
+        li.item(data-para="{appname:'#{item.appname}',pagename:'#{item.pagename}',apiname:'#{item.apiname}'}")
           span.span1 #{item.appname}
           span.span1 #{item.pagename}
           span.span1

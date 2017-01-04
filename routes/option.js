@@ -8,13 +8,14 @@ module.exports = function* (next) {
     var urlArr = url.split('?');
     var type = urlArr.length > 0 ? urlArr[0].replace('?', '') : urlArr;
     var data = null;
-    var pageName = this.query.pagename;
+    var appname = this.query.appname;
+    var pagename = this.query.pagename;
     var apiname = this.query.apiname;
     // var {pagename,id} = this.query; //会报错？什么原因
     var para = {
-        'appname': this.query.appname.toLowerCase(),
-        'pagename': this.query.pagename.toLowerCase(),
-        'apiname': this.query.apiname.toLowerCase()
+        'appname': appname ? appname.toLowerCase().trim() : "",
+        'pagename': pagename ? pagename.toLowerCase().trim() : "",
+        'apiname': apiname ? apiname.toLowerCase().trim() : ""
     }
     var status = {};
     !para.appname && delete para.appname;

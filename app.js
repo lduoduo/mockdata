@@ -7,11 +7,12 @@ var app = require('koa')()
     , views = require('koa-views')
     , onerror = require('koa-onerror');
 // , multer = require('koa-multer');
-
+// // var config = require('./config');
+//
 var fs = require('fs');
 
-var port = process.env.PORT || '8090';
-var ports = '8091';
+var port = process.env.PORT || '9998';
+var ports = '9999';
 var http = require('http');
 var https = require('https');
 
@@ -20,7 +21,7 @@ var debug = require('debug')('demo:server');
 
 var routers = require('./routes');
 var mongo = require('koa-mongo');
-var config = require('./config');
+
 
 //https option
 var options = {
@@ -44,8 +45,8 @@ app.use(json({ limit: '50mb' }));
 app.use(logger());
 
 app.use(mongo({
-  uri: 'mongodb://'+config.ip+':27017/datas', //or url
-    // uri: 'mongodb://localhost:27017/datas', //or url
+//   uri: 'mongodb://'+config.ip+':27017/datas', //or url
+    uri: 'mongodb://10.100.156.37:27017/datas', //or url
     max: 100,
     min: 1,
     timeout: 30000,

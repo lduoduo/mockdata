@@ -13,7 +13,7 @@ module.exports = function* (next) {
     pageName = urlArr && urlArr.length > 0 ? urlArr[0].replace('/', '') : urlArr;
     id = urlArr.length > 1 ? urlArr[1].replace('/', '') : urlArr[0];
 
-    var data = yield this.mongo.db('datas').collection('datas').findOne({ pagename: pageName, apiname: id });
+    var data = yield this.mongo.db('datas').collection('datas').findOne({ pagename: pageName, apiname: id ,isActive: true});
 
 
     res = {

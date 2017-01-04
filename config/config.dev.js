@@ -10,9 +10,9 @@ module.exports = class Config {
         /** 本地ip */
         this.ip = getLocalIps()[0];
         /*站点的端口*/
-        this.serverPort = 8080;
+        this.serverPort = 9998;
         /*本地静态资源的端口*/
-        this.staticPort = 8090;
+        this.staticPort = 9999;
         /*站点引用静态资源的地址*/
         this.frontURL =
             {
